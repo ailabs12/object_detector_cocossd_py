@@ -38,8 +38,7 @@ def detectFaces(SendToFaces, img, imgResized):
 		confidence = outputBlob[0, 0, i, 2]
 		#Определяет минимальный доверительный порог для вывода лиц
 		if confidence > confidence_faces:
-			#class_id = int(outputBlob[0, 0, i, 1]) # Class label
-			className = "лицо/face"
+			className = data[str(81)]['Rus'] #['Eng'] for English mode
 
 			xLeftBottom = int(outputBlob[0, 0, i, 3] * img.shape[1])
 			yLeftBottom = int(outputBlob[0, 0, i, 4] * img.shape[0])
