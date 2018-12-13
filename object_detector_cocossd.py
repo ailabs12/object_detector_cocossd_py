@@ -40,13 +40,13 @@ def detectFaces(SendToFaces, img, imgResized):
 		if confidence > confidence_faces:
 			className = data[str(81)]['Rus'] #['Eng'] for English mode
 
-			xLeftBottom = int(outputBlob[0, 0, i, 3] * img.shape[1])
-			yLeftBottom = int(outputBlob[0, 0, i, 4] * img.shape[0])
-			xRightTop = int(outputBlob[0, 0, i, 5] * img.shape[1])
-			yRightTop = int(outputBlob[0, 0, i, 6] * img.shape[0])
+			xLeftTop = int(outputBlob[0, 0, i, 3] * img.shape[1])
+			yLeftTop = int(outputBlob[0, 0, i, 4] * img.shape[0])
+			xRightBottom = int(outputBlob[0, 0, i, 5] * img.shape[1])
+			yRightBottom = int(outputBlob[0, 0, i, 6] * img.shape[0])
 
 			#Добавление записи в список найденных лиц
-			resultsFaces.append([className, xLeftBottom, yLeftBottom, xRightTop, yRightTop])
+			resultsFaces.append([className, confidence, xLeftTop, yLeftTop, xRightBottom, yRightBottom])
 
 	#Раскомментировать для отрисовки (прямоугольником) границ лица
 	#cv2.rectangle(img, (xLeftBottom, yLeftBottom), (xRightTop, yRightTop), (255, 0, 0), 3)
@@ -99,13 +99,13 @@ def classifyImg(imageBase64):
 				if (className == "person" or className == "человек"):
 					SendToFaces = True
 
-			xLeftBottom = int(outputBlob[0, 0, i, 3] * img.shape[1])
-			yLeftBottom = int(outputBlob[0, 0, i, 4] * img.shape[0])
-			xRightTop = int(outputBlob[0, 0, i, 5] * img.shape[1])
-			yRightTop = int(outputBlob[0, 0, i, 6] * img.shape[0])
+			xLeftTop = int(outputBlob[0, 0, i, 3] * img.shape[1])
+			yLeftTop = int(outputBlob[0, 0, i, 4] * img.shape[0])
+			xRightBottom = int(outputBlob[0, 0, i, 5] * img.shape[1])
+			yRightBottom = int(outputBlob[0, 0, i, 6] * img.shape[0])
 
 			#Добавление записи в список найденных объектов
-			Objects.append([className, xLeftBottom, yLeftBottom, xRightTop, yRightTop])
+			Objects.append([className, confidence, xLeftTop, yLeftTop, xRightBottom, yRightBottom])
 
 			#Раскомментировать для отрисовки (прямоугольником) границ объекта
 			#cv2.rectangle(img, (xLeftBottom, yLeftBottom), (xRightTop, yRightTop), (0, 255, 0), 3)
